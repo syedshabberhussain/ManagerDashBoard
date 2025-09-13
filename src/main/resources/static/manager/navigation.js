@@ -274,26 +274,26 @@ class Navigation {
 		const sidebarHTML = `
       <div class="sidebar">
         <h2>Manager Panel</h2>
-        <a href="user.html" class="${currentPage === 'user.html' ? 'active' : ''}">
+        <a href="/manager/user.html" class="${currentPage === 'user.html' ? 'active' : ''}">
           <i class="fas fa-user"></i> Profile
         </a>
-        <a href="Assignuser.html" class="${currentPage === 'Assignuser.html' ? 'active' : ''}">
+        <a href="/manager/Assignuser.html" class="${currentPage === 'Assignuser.html' ? 'active' : ''}">
           <i class="fas fa-tasks"></i> Assign Users
         </a>
-        <a href="Tracking.html" class="${currentPage === 'Tracking.html' ? 'active' : ''}">
+        <a href="/manager/Tracking.html" class="${currentPage === 'Tracking.html' ? 'active' : ''}">
           <i class="fas fa-eye"></i> Tracking
         </a>
-        <a href="AdminDetails.html" class="${currentPage === 'AdminDetails.html' ? 'active' : ''}">
+        <a href="/manager/AdminDetails.html" class="${currentPage === 'AdminDetails.html' ? 'active' : ''}">
           <i class="fas fa-users-cog"></i> Admin Details
         </a>
-		<a href="Notification.html" class="${currentPage === 'Notification.html' ? 'active' : ''}">
+		<a href="/manager/Notification.html" class="${currentPage === 'Notification.html' ? 'active' : ''}">
 		  <i class="fas fa-bell"></i> Notification 
 		  <span id="notificationBadge" class="notification-badge" style="display:none;">0</span>
 		</a>
-        <a href="help.html" class="${currentPage === 'help.html' ? 'active' : ''}">
+        <a href="/manager/help.html" class="${currentPage === 'help.html' ? 'active' : ''}">
           <i class="fas fa-life-ring"></i> Help & Support
         </a>
-        <a href="Logout.html" class="${currentPage === 'Logout.html' ? 'active' : ''}">
+        <a href="/manager/Logout.html" class="${currentPage === 'Logout.html' ? 'active' : ''}">
           <i class="fas fa-sign-out-alt"></i> Logout
         </a>
       </div>

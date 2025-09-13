@@ -139,7 +139,7 @@
 
 				if (res.ok && data.status === "success") {
 					localStorage.setItem('managerEmail', data.email);
-					window.location.href = '/user.html?email=' + encodeURIComponent(data.email);
+					window.location.href = '/manager/user.html?email=' + encodeURIComponent(data.email);
 				} else {
 					errorMsg.textContent = data.message || "Invalid credentials. Please try again.";
 					errorMsg.style.display = "block";

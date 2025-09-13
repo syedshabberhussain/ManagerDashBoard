@@ -61,7 +61,7 @@ public class ManagerManagerController {
     
     @GetMapping("/loginform")
     public String loginForm() {
-        return "forward:/Login.html";
+        return "forward:/manager/Login.html";
     }
 
     
