@@ -171,7 +171,7 @@
 			position: fixed;
 			top: 50%;
 			left: 50%;
-			transform: translate(-50%, -50%);
+			transform: translate(-38%, -45%);
 			background: white;
 			border-radius: 12px;
 			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -180,6 +180,9 @@
 			max-width: 1000px;
 			max-height: 80vh;
 			overflow-y: auto;
+			-ms-overflow-style: none;
+			/* IE/Edge */
+			scrollbar-width: none;
 		}
 
 		.status-modal.active {
@@ -309,8 +312,8 @@
 		.details-modal {
 			display: none;
 			position: fixed;
-			top: 50%;
-			left: 50%;
+			top: 54%;
+			left: 77%;
 			transform: translate(-50%, -50%);
 			background: #f8fafc;
 			border-radius: 12px;
@@ -322,6 +325,9 @@
 			max-width: 95vw;
 			max-height: 90vh;
 			overflow-y: auto;
+			-ms-overflow-style: none;
+			/* IE/Edge */
+			scrollbar-width: none;
 		}
 
 		.details-modal.active {
@@ -1038,33 +1044,33 @@
 		}
 
 		function showStatusModal(adminId) {
-		    const modal = document.getElementById("statusModal");
-		    const overlay = document.getElementById("modalOverlay");
-		    const modalTitle = document.getElementById("modalTitle");
-		    modalTitle.textContent = `Admin Status - ${adminId}`;
+			const modal = document.getElementById("statusModal");
+			const overlay = document.getElementById("modalOverlay");
+			const modalTitle = document.getElementById("modalTitle");
+			modalTitle.textContent = `Admin Status - ${adminId}`;
 
-		    currentAdminId = adminId;
-		    // Reset modal contents
-		    document.getElementById("assignedModalTableBody").innerHTML = "";
-		    document.getElementById("recruitedModalTableBody").innerHTML = "";
-		    document.getElementById("closedModalTableBody").innerHTML = "";
+			currentAdminId = adminId;
+			// Reset modal contents
+			document.getElementById("assignedModalTableBody").innerHTML = "";
+			document.getElementById("recruitedModalTableBody").innerHTML = "";
+			document.getElementById("closedModalTableBody").innerHTML = "";
 
-		    // Clear old chart
-		    const canvas = document.getElementById("statusPieChart");
-		    const ctx = canvas.getContext("2d");
-		    ctx.clearRect(0, 0, canvas.width, canvas.height);
+			// Clear old chart
+			const canvas = document.getElementById("statusPieChart");
+			const ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		    // Reset modal date filter
-		    const modalDateFilter = document.getElementById("modalDateFilter");
-		    if (modalDateFilter) {
-		        modalDateFilter.value = "";
-		    }
+			// Reset modal date filter
+			const modalDateFilter = document.getElementById("modalDateFilter");
+			if (modalDateFilter) {
+				modalDateFilter.value = "";
+			}
 
-		    // Load data for default tab
-		    populateModalTables(adminId);
+			// Load data for default tab
+			populateModalTables(adminId);
 
-		    modal.classList.add("active");
-		    overlay.classList.add("active");
+			modal.classList.add("active");
+			overlay.classList.add("active");
 		}
 
 		function closeStatusModal() {
@@ -1108,41 +1114,41 @@
 		}
 
 		async function populateModalTables(adminId) {
-		    const assignedTableBody = document.getElementById("assignedModalTableBody");
-		    const recruitedTableBody = document.getElementById("recruitedModalTableBody");
-		    const closedTableBody = document.getElementById("closedModalTableBody");
+			const assignedTableBody = document.getElementById("assignedModalTableBody");
+			const recruitedTableBody = document.getElementById("recruitedModalTableBody");
+			const closedTableBody = document.getElementById("closedModalTableBody");
 
-		    assignedTableBody.innerHTML = "";
-		    recruitedTableBody.innerHTML = "";
-		    closedTableBody.innerHTML = "";
+			assignedTableBody.innerHTML = "";
+			recruitedTableBody.innerHTML = "";
+			closedTableBody.innerHTML = "";
 
-		    try {
-		        // Add tab param ✅
-		        const modalDateFilter = document.getElementById("modalDateFilter");
-		        let url = `/manager/api/admin/${encodeURIComponent(adminId)}/users?tab=${encodeURIComponent(currentTab)}`;
+			try {
+				// Add tab param ✅
+				const modalDateFilter = document.getElementById("modalDateFilter");
+				let url = `/manager/api/admin/${encodeURIComponent(adminId)}/users?tab=${encodeURIComponent(currentTab)}`;
 
-		        if (modalDateFilter && modalDateFilter.value) {
-		            url += `&date=${encodeURIComponent(modalDateFilter.value)}`;
-		        }
+				if (modalDateFilter && modalDateFilter.value) {
+					url += `&date=${encodeURIComponent(modalDateFilter.value)}`;
+				}
 
-		        const response = await fetch(url);
+				const response = await fetch(url);
 
-		        if (response.status === 404) {
-		            console.log("No users found for this admin");
-		            return [];
-		        }
-		        if (!response.ok) {
-		            throw new Error(`Failed to fetch users: ${response.status}`);
-		        }
+				if (response.status === 404) {
+					console.log("No users found for this admin");
+					return [];
+				}
+				if (!response.ok) {
+					throw new Error(`Failed to fetch users: ${response.status}`);
+				}
 
-		        const adminResumes = await response.json();
-		        let assignedCount = 0, recruitedCount = 0, rejectedCount = 0;
+				const adminResumes = await response.json();
+				let assignedCount = 0, recruitedCount = 0, rejectedCount = 0;
 
-		        adminResumes.forEach(resume => {
-		            const status = resume.finalStatus || "In Progress";
-		            const statusBadge = getStatusBadge(status);
+				adminResumes.forEach(resume => {
+					const status = resume.finalStatus || "In Progress";
+					const statusBadge = getStatusBadge(status);
 
-		            const row = `
+					const row = `
 		                <tr>
 		                    <td>${resume.id || "N/A"}</td>
 		                    <td>${resume.name || "N/A"}</td>
@@ -1156,35 +1162,35 @@
 		                </tr>
 		            `;
 
-		            if (status === "Recruited") {
-		                recruitedTableBody.innerHTML += row;
-		                closedTableBody.innerHTML += row; // ✅ keep recruited inside closed
-		                recruitedCount++;
-		            } else if (status === "Rejected") {
-		                closedTableBody.innerHTML += row;
-		                rejectedCount++;
-		            } else {
-		                assignedTableBody.innerHTML += row;
-		                assignedCount++;
-		            }
-		        });
+					if (status === "Recruited") {
+						recruitedTableBody.innerHTML += row;
+						closedTableBody.innerHTML += row; // ✅ keep recruited inside closed
+						recruitedCount++;
+					} else if (status === "Rejected") {
+						closedTableBody.innerHTML += row;
+						rejectedCount++;
+					} else {
+						assignedTableBody.innerHTML += row;
+						assignedCount++;
+					}
+				});
 
-		        if (assignedTableBody.innerHTML.trim() === "")
-		            assignedTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No assigned resumes found</td></tr>';
-		        if (recruitedTableBody.innerHTML.trim() === "")
-		            recruitedTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No recruited candidates found</td></tr>';
-		        if (closedTableBody.innerHTML.trim() === "")
-		            closedTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No closed files found</td></tr>';
+				if (assignedTableBody.innerHTML.trim() === "")
+					assignedTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No assigned resumes found</td></tr>';
+				if (recruitedTableBody.innerHTML.trim() === "")
+					recruitedTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No recruited candidates found</td></tr>';
+				if (closedTableBody.innerHTML.trim() === "")
+					closedTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No closed files found</td></tr>';
 
-		        createPieChart(assignedCount, recruitedCount, rejectedCount);
+				createPieChart(assignedCount, recruitedCount, rejectedCount);
 
-		    } catch (error) {
-		        console.error("Error loading resumes:", error);
-		        const errorRow = '<tr><td colspan="5" class="no-data">Error loading data</td></tr>';
-		        assignedTableBody.innerHTML = errorRow;
-		        recruitedTableBody.innerHTML = errorRow;
-		        closedTableBody.innerHTML = errorRow;
-		    }
+			} catch (error) {
+				console.error("Error loading resumes:", error);
+				const errorRow = '<tr><td colspan="5" class="no-data">Error loading data</td></tr>';
+				assignedTableBody.innerHTML = errorRow;
+				recruitedTableBody.innerHTML = errorRow;
+				closedTableBody.innerHTML = errorRow;
+			}
 		}
 
 		function getStatusBadge(status) {
@@ -1314,31 +1320,31 @@
 		}
 
 		function showModalTab(tab) {
-		    const assignedContent = document.getElementById("assignedContent");
-		    const recruitedContent = document.getElementById("recruitedContent");
-		    const closedContent = document.getElementById("closedContent");
-		    const tabButtons = document.querySelectorAll(".modal-tab-btn");
+			const assignedContent = document.getElementById("assignedContent");
+			const recruitedContent = document.getElementById("recruitedContent");
+			const closedContent = document.getElementById("closedContent");
+			const tabButtons = document.querySelectorAll(".modal-tab-btn");
 
-		    currentTab = tab;
+			currentTab = tab;
 
-		    tabButtons.forEach(btn => btn.classList.remove("active"));
+			tabButtons.forEach(btn => btn.classList.remove("active"));
 
-		    assignedContent.style.display = "none";
-		    recruitedContent.style.display = "none";
-		    closedContent.style.display = "none";
+			assignedContent.style.display = "none";
+			recruitedContent.style.display = "none";
+			closedContent.style.display = "none";
 
-		    if (tab === "assigned") {
-		        assignedContent.style.display = "block";
-		        tabButtons[0].classList.add("active");
-		    } else if (tab === "recruited") {
-		        recruitedContent.style.display = "block";
-		        tabButtons[1].classList.add("active");
-		    } else if (tab === "fileClosed") {
-		        closedContent.style.display = "block";
-		        tabButtons[2].classList.add("active");
-		    }
+			if (tab === "assigned") {
+				assignedContent.style.display = "block";
+				tabButtons[0].classList.add("active");
+			} else if (tab === "recruited") {
+				recruitedContent.style.display = "block";
+				tabButtons[1].classList.add("active");
+			} else if (tab === "fileClosed") {
+				closedContent.style.display = "block";
+				tabButtons[2].classList.add("active");
+			}
 
-		    populateModalTables(currentAdminId);
+			populateModalTables(currentAdminId);
 		}
 
 		async function showResumeDetails(resumeId) {
@@ -1359,17 +1365,17 @@
 				const detailsFields = document.getElementById("detailsFields");
 
 				const fieldsToShow = [
-				    "callStatus",
-				    "answeredCall",
-				    "lookingForJob",
-				    "eligibleForClient",
-				    "telephoneInterview",
-				    "hrInterview",
-				    "operationRound",
-				    "versantVoice",
-				    "documentation",
-				    "offerLetter",
-				    "joining"
+					"callStatus",
+					"answeredCall",
+					"lookingForJob",
+					"eligibleForClient",
+					"telephoneInterview",
+					"hrInterview",
+					"operationRound",
+					"versantVoice",
+					"documentation",
+					"offerLetter",
+					"joining"
 				];
 
 				detailsFields.innerHTML = fieldsToShow.map(field => {

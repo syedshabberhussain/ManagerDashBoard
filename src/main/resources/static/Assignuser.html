@@ -50,7 +50,7 @@
 		}
 
 		#rangeSelector {
-			background-color: #ffffff;
+		 background: linear-gradient(135deg, #e0f2fe, #ede9fe);
 			padding: 15px;
 			margin-bottom: 20px;
 			border-radius: 8px;
@@ -73,7 +73,7 @@
 			background-color: #10b981;
 			color: white;
 			border: none;
-			border-radius: 6px;
+			border-radius: 15px;
 			cursor: pointer;
 			transition: background-color 0.2s ease;
 		}
@@ -236,7 +236,7 @@
 						<th>S.no</th>
 						<th>Name</th>
 						<th>Email</th>
-						<th>Degree</th>
+						<th>Qualification</th>
 					</tr>
 				</thead>
 				<tbody id="notAssignedTable"></tbody>
@@ -252,7 +252,7 @@
 						<th>S.No</th>
 						<th>Name</th>
 						<th>Email</th>
-						<th>Degree</th>
+						<th>Qualification</th>
 						<th>Assigned To</th>
 						<th>Assigned Date</th>
 					</tr>
@@ -339,7 +339,7 @@
 		    // Change search placeholder
 		    const searchInput = document.getElementById("searchInput");
 		    searchInput.placeholder = tab === "notAssigned" ?
-		        "Search by user name or email" :
+		        "Search by name or email" :
 		        "Search by name or email";
 
 		    // Fetch data
@@ -432,7 +432,7 @@
 		                <td>${index + 1}</td>
 		                <td>${user.name || ''}</td>
 		                <td>${user.email || ''}</td>
-		                <td>${user.degree || ''}</td>
+		                <td>${user.qualification || ''}</td>
 		            </tr>
 		        `);
 		    });
@@ -468,7 +468,7 @@
 		        <td>${index + 1}</td>
 		        <td>${user.name || ''}</td>
 		        <td>${user.email || ''}</td>
-		        <td>${user.degree || 'N/A'}</td>
+		        <td>${user.qualification || 'N/A'}</td>
 		        <td>${user.admin || ''}</td>
 		        <td>${user.assignedDate || 'N/A'}</td>
 		      </tr>`;

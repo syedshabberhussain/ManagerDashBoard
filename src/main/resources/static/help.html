@@ -61,28 +61,30 @@
 		.main {
 			background-color: #ffffff !important;
 			min-height: calc(100vh - 60px) !important;
-			padding: 20px !important;
+			padding: 30px !important;
+			/* increased padding */
 			overflow-y: auto !important;
 		}
 
 		.help-container {
-			max-width: none;
-			width: 100%;
-			margin: 0;
-			height: auto;
-			position: relative;
-			z-index: 1;
-			padding-bottom: 40px;
+			max-width: 1200px;
+			/* center content */
+			margin: 0 auto;
+			/* keeps space on left and right */
+			padding: 20px;
+			/* spacing inside */
 		}
 
 		.help-grid {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: 20px;
-			margin-bottom: 30px;
+			gap: 24px;
+			/* space between the two cards */
+			margin: 30px;
 		}
 
-		.ticket-form-card {
+		.ticket-form-card,
+		.tickets-list-card {
 			background: #ffffff;
 			border-radius: 12px;
 			padding: 30px;
@@ -323,7 +325,7 @@
 		@media (max-width: 768px) {
 			.help-grid {
 				grid-template-columns: 1fr;
-				gap: 20px;
+				gap: 30px;
 			}
 
 			.main {
@@ -333,7 +335,7 @@
 
 			.ticket-form-card,
 			.tickets-list-card {
-				padding: 45px;
+				padding: 15px;
 			}
 
 			.ticket-header {
@@ -374,8 +376,7 @@
 			position: sticky;
 			top: 0;
 			z-index: 5;
-			background: #fff;
-			padding: 8px 12px;
+			padding: 8px 32px;
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
